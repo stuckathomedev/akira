@@ -45,7 +45,9 @@ def main():
             tts("Hi!")
             audio = r.listen(source)
             try:
+                print("dbg: waiting for speech recognition")
                 statement = str(r.recognize_google(audio))
+                print("dbg: got speech recognition")
 
                 statement = re.sub('^(hi|hello|please)', '', statement).strip()
                 moduled = False
