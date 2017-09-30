@@ -47,7 +47,7 @@ def main():
             try:
                 statement = str(r.recognize_google(audio))
 
-                statement = re.sub('^(hi|hello)', '', statement).strip()
+                statement = re.sub('^(hi|hello|please)', '', statement).strip()
                 moduled = False
                 for module in [leave, duck_search, twitter, weather]:
                     if module.trigger_regex.match(statement):
