@@ -20,9 +20,9 @@ def get_zip_weather(zip_code):
 
 
 def parse_temp(temp):
-    cur_temp = str(temp['temp'])
-    max_temp = str(temp['temp_max'])
-    min_temp = str(temp['temp_min'])
+    cur_temp = temp['temp']
+    max_temp = temp['temp_max']
+    min_temp = temp['temp_min']
 
     return cur_temp, max_temp, min_temp
 
@@ -32,4 +32,4 @@ trigger_regex = re.compile("^(what's the weather|what is the weather|weather).+$
 def run():
     temp, current, daily_forecasts, status = get_zip_weather("01720")
     cur_temp, max_temp, min_temp = parse_temp(temp)
-    tts(f"The temperature today is {cur_temp} degrees Fahrenheit, with a high of {max_temp} degrees and a low of {min_temp}. The current forecast is {status}.")
+    tts(f"The temperature today is {cur_temp:.0f} degrees Fahrenheit, with a high of {max_temp:.0f} degrees and a low of {min_temp:.0f}. The current forecast is {status}.")
