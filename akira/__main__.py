@@ -2,7 +2,7 @@ __version__ = '0.0.1'
 
 import os, math, time, re
 from voice import tts
-from cogs import duck_search, weather, twitter
+from cogs import duck_search, weather, twitter, quit as leave
 import pocketsphinx
 import pyaudio
 import speech_recognition as sr
@@ -40,25 +40,27 @@ def wait_for_hotword():
 def main():
     tts("Starting up akira.")
     r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
-        r.pause_threshold = 0.3
-        r.non_speaking_duration = 0.3
-        while wait_for_hotword():
+    while wait_for_hotword():
+        with sr.Microphone() as source:
             tts("Hi!")
             audio = r.listen(source)
-            statement = str(r.recognize_google(audio))
-            statement = re.sub('^(hi |hello )', '', statement)
-            moduled = False
-            for module in [duck_search, twitter, weather]:
-                if module.trigger_regex.match(statement):
-                    print(f"dbg: starting {module}")
-                    moduled = True
-                    module.run(module.trigger_regex.search(statement))
-            if not moduled:
-                tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
+            try:
+                statement = str(r.recognize_google(audio))
 
-            time.sleep(3)
+                statement = re.sub('^(hi|hello)', '', statement).strip()
+                moduled = False
+                for module in [leave, duck_search, twitter, weather]:
+                    if module.trigger_regex.match(statement):
+                        print(f"dbg: starting {module}")
+                        moduled = True
+                        print(f"dbg: found match: {module.trigger_regex.match(statement)}")
+                        module.run(module.trigger_regex.match(statement))
+                if not moduled:
+                    tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
+            except sr.UnknownValueError:
+                tts("Sorry, I didn't catch that.")
+
+            time.sleep(2)
 
 if __name__ == '__main__':
     main()

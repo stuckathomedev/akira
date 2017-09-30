@@ -3,6 +3,6 @@ from voice import tts
 
 trigger_regex = re.compile('^quit$', re.IGNORECASE)
 
-def run():
+def run(x):
     tts("Bye!")
     quit()
