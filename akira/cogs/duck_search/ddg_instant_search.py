@@ -12,5 +12,5 @@ def ddg_instant_answer(query):
                      headers={'User-Agent': USER_AGENT})
 
     jdata = r.json()
-    print(jdata["RelatedTopics"][0]["Text"])
+    return jdata["RelatedTopics"][0]["Text"]
 
