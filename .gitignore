@@ -25,6 +25,7 @@ cogs/facebook/cfg.py
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/misc.xml
+.idea/akira.iml
 
 # Gradle:
 .idea/**/gradle.xml
