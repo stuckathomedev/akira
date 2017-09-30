@@ -51,4 +51,4 @@ def run(matches):
     cur_temp, max_temp, min_temp = parse_temp(temp)
     answer = wear_clothes(cur_temp, status)
     tts(answer)
-    tts(f"The temperature today is {cur_temp:.0f} degrees Fahrenheit, with a high of {max_temp:.0f} degrees and a low of {min_temp:.0f}. The current forecast is {status}.")
+    tts(f"The temperature right now is {cur_temp:.0f} degrees Fahrenheit, with a high of {max_temp:.0f} degrees and a low of {min_temp:.0f}. The current forecast is {status}.")

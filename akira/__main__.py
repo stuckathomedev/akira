@@ -40,6 +40,8 @@ def wait_for_hotword():
 def main():
     tts("Starting up akira.")
     r = sr.Recognizer()
+    r.non_speaking_duration = 0.5
+    r.pause_threshold = 0.5
     while wait_for_hotword():
         with sr.Microphone() as source:
             tts("Hi!")
@@ -50,15 +52,16 @@ def main():
                 print("dbg: got speech recognition")
 
                 statement = re.sub('^(hi|hello|please)', '', statement).strip()
-                moduled = False
+                found_module = False
                 for module in [leave, duck_search, twitter, weather, facebook]:
                     print("dbg: testing module " + str(module))
                     if module.trigger_regex.match(statement):
                         print(f"dbg: starting {module}")
-                        moduled = True
+                        found_module = True
                         print(f"dbg: found match: {module.trigger_regex.match(statement)}")
                         module.run(module.trigger_regex.match(statement))
-                if not moduled:
+                        continue
+                if not found_module:
                     tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
             except sr.UnknownValueError:
                 tts("Sorry, I didn't catch that.")
