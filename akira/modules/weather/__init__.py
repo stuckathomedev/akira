@@ -4,6 +4,7 @@ from voice import tts
 
 
 def get_zip_weather(zip_code):
+    print(zip_code)
     api_key = '4becd4f5bd426b1adc8d23b8496d7d00'
     owm = OWM(api_key)
 
@@ -42,11 +43,11 @@ def wear_clothes(temp, status):
         return what_to_do
 
 
-trigger_regex = re.compile("^(what's the weather( today)?|what is the weather( today)?|weather).+$", re.IGNORECASE + re.UNICODE)
+trigger_regex = re.compile("^(?:what's the weather(?: like)?(?: today)? at?|what is the weather(?: like)?(?: today)? at?|weather at) (.+)$", re.IGNORECASE + re.UNICODE)
 
 
-def run(x):
-    temp, current, daily_forecasts, status = get_zip_weather("01720")
+def run(matches):
+    temp, current, daily_forecasts, status = get_zip_weather(matches.groups()[0])
     cur_temp, max_temp, min_temp = parse_temp(temp)
     answer = wear_clothes(cur_temp, status)
     tts(answer)

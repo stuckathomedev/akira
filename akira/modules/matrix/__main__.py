@@ -1,6 +1,6 @@
 import sys
-import cogs.matrix.ref
-import cogs.matrix.cfg
+import modules.matrix.ref
+import modules.matrix.cfg
 import logging
 
 from matrix_client.client import MatrixClient
