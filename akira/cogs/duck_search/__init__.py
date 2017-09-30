@@ -5,4 +5,4 @@ from voice import tts
 trigger_regex = re.compile('^(?:please )?search for$')
 
 def run(search_query):
-    tts(f"Your results: {ddg_instant_answer(search_query.groups().index(0))}")
+    tts(f"Your results: {ddg_instant_answer(search_query.groups(1).index(0))}")
