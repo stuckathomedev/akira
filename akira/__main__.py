@@ -22,14 +22,14 @@ config = pocketsphinx.Decoder.default_config()
 config.set_string('-hmm', os.path.join(model_dir, 'en-us'))
 config.set_string('-keyphrase', 'hello')
 config.set_string('-dict', os.path.join(model_dir, 'cmudict-en-us.dict'))
-config.set_float('-kws_threshold', math.pow(10, -9))
+config.set_float('-kws_threshold', math.pow(10, -12))
 decoder = pocketsphinx.Decoder(config)
 
 def wait_for_hotword():
     decoder.start_utt()
 
     while True:
-        buf = stream.read(1024)
+        buf = stream.read(1024, exception_on_overflow=False)
         if buf:
             decoder.process_raw(buf, False, False)
             if decoder.hyp() is not None:
@@ -44,7 +44,6 @@ def main():
         r.adjust_for_ambient_noise(source)
         while wait_for_hotword():
             tts("Hi!")
-            time.sleep(0.5)
             audio = r.listen(source)
             try:
                 statement = str(r.recognize_google(audio))
@@ -54,7 +53,7 @@ def main():
             statement = re.sub('^(hi |hello )', '', statement)
             tts(statement)
 
-            time.sleep(4)
+            time.sleep(1)
 
         #weather.run()
 
