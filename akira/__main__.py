@@ -1,6 +1,6 @@
 __version__ = '0.0.1'
 
-import os
+import os, math
 from voice import tts
 from cogs import duck_search, weather, twitter
 import pocketsphinx
@@ -22,7 +22,7 @@ def wait_for_hotword():
     config.set_string('-hmm', os.path.join(model_dir, 'en-us'))
     config.set_string('-keyphrase', 'hello')
     config.set_string('-dict', os.path.join(model_dir, 'cmudict-en-us.dict'))
-    config.set_float('-kws_threshold', 1e-8)
+    config.set_float('-kws_threshold', math.pow(10, -7.5))
     decoder = pocketsphinx.Decoder(config)
 
     decoder.start_utt()
@@ -40,7 +40,8 @@ def main():
     tts("Starting up akira.")
 
     while wait_for_hotword():
-        tts("received hotword")
+        tts("Hi!")
+
         #weather.run()
 
 if __name__ == '__main__':
