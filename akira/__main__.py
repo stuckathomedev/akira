@@ -42,20 +42,23 @@ def main():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
+        r.pause_threshold = 0.3
+        r.non_speaking_duration = 0.3
         while wait_for_hotword():
             tts("Hi!")
             audio = r.listen(source)
-            try:
-                statement = str(r.recognize_google(audio))
-            except:
-                tts("Sorry, please try again.")
-                continue
+            statement = str(r.recognize_google(audio))
             statement = re.sub('^(hi |hello )', '', statement)
-            tts(statement)
+            moduled = False
+            for module in [duck_search, twitter, weather]:
+                if module.trigger_regex.match(statement):
+                    print(f"dbg: starting {module}")
+                    moduled = True
+                    module.run(module.trigger_regex.search(statement))
+            if not moduled:
+                tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
 
-            time.sleep(1)
-
-        #weather.run()
+            time.sleep(3)
 
 if __name__ == '__main__':
     main()

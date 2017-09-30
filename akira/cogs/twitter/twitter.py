@@ -10,5 +10,3 @@ def send_tweet(tweet_contents):
     api = get_api(cfg)
     tweet = tweet_contents
     status = api.update_status(status=tweet)
-
-send_tweet("Hello World!")

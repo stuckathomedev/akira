@@ -45,7 +45,7 @@ def wear_clothes(temp, status):
 trigger_regex = re.compile("^(what's the weather|what is the weather|weather).+$", re.IGNORECASE + re.UNICODE)
 
 
-def run():
+def run(x):
     temp, current, daily_forecasts, status = get_zip_weather("01720")
     cur_temp, max_temp, min_temp = parse_temp(temp)
     answer = wear_clothes(cur_temp, status)

@@ -1,5 +1,5 @@
 import facebook
-from cogs.facebook.cfg import cfg
+from cogs.facebook.facebook_cfg import cfg
 
 def post_on_facebook(msg):
     api = get_api(cfg)
