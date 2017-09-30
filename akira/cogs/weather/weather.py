@@ -6,9 +6,13 @@ def get_weather(place):
     owm = OWM(api_key)
     owm_en = OWM()
 
+    # Initialize weather
     current = owm.weather_at_place(place)
+    # Get the temp
     temp = current.get_weather().get_temperature('fahrenheit')
+    # Get the status at area
     status = current.get_weather().get_detailed_status()
+    # Get forecast
     daily_forecasts = owm.daily_forecast(place).get_forecast()
 
     for forecast in daily_forecasts:
@@ -26,10 +30,13 @@ def get_zip_weather(zip_code):
     owm = OWM(api_key)
     owm_en = OWM()
 
-    #Initialize 
+    # Initialize weather
     current = owm.weather_at_zip_code(zip_code)
+    # Get the temperature
     temp = current.get_weather().get_temperature('fahrenheit')
+    # Detailed status
     status = current.get_weather().get_detailed_status()
+    # Get forecast
     daily_forecasts = owm.daily_forecast(zip_code).get_forecast()
 
     return temp, current, daily_forecasts, status
@@ -42,6 +49,4 @@ def parse_temp(temp):
 
     return cur_temp, max_temp, min_temp
 
-def parse_forecast(forecast):
-    description = str(forecast[''])
 
