@@ -8,6 +8,9 @@
 #Twitter Stuff
 cogs/twitter/twitter_cfg.py
 
+#Facebook stuff
+cogs/facebook/cfg.py
+
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
