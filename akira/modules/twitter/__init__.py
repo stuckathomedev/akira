@@ -1,7 +1,7 @@
 import re
 import tweepy
 from voice import tts
-from cogs.twitter.twitter import send_tweet
+from modules.twitter.twitter import send_tweet
 
 trigger_regex = re.compile('^tweet (.+)', re.IGNORECASE + re.UNICODE)
 

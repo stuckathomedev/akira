@@ -1,5 +1,5 @@
 import re
-from cogs.duck_search.ddg_instant_search import ddg_instant_answer
+from modules.duck_search.ddg_instant_search import ddg_instant_answer
 from voice import tts
 
 trigger_regex = re.compile('^(?:please )?search for$')

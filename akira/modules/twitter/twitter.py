@@ -1,5 +1,5 @@
 import tweepy
-from cogs.twitter.twitter_cfg import cfg
+from modules.twitter.twitter_cfg import cfg
 
 def get_api(cfg):
     auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])

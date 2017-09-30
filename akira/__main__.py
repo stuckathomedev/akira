@@ -2,7 +2,7 @@ __version__ = '0.0.1'
 
 import os, math, time, re
 from voice import tts
-from cogs import duck_search, weather, twitter, quit as leave
+from modules import duck_search, weather, twitter, quit as leave
 import pocketsphinx
 import pyaudio
 import speech_recognition as sr
