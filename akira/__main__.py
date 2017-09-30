@@ -2,7 +2,7 @@ __version__ = '0.0.1'
 
 import os, math, time, re
 from voice import tts
-from modules import duck_search, weather, twitter, quit as leave
+from modules import duck_search, weather, twitter, quit as leave, facebook
 import pocketsphinx
 import pyaudio
 import speech_recognition as sr
@@ -49,7 +49,8 @@ def main():
 
                 statement = re.sub('^(hi|hello|please)', '', statement).strip()
                 moduled = False
-                for module in [leave, duck_search, twitter, weather]:
+                for module in [leave, duck_search, twitter, weather, facebook]:
+                    print("dbg: testing module " + str(module))
                     if module.trigger_regex.match(statement):
                         print(f"dbg: starting {module}")
                         moduled = True
@@ -59,6 +60,8 @@ def main():
                     tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
             except sr.UnknownValueError:
                 tts("Sorry, I didn't catch that.")
+            except sr.RequestError:
+                tts("Sorry, speech recognition failed. Please check your internet connection.")
 
             time.sleep(2)
 

@@ -3,7 +3,7 @@ import tweepy
 from voice import tts
 from modules.twitter.twitter import send_tweet
 
-trigger_regex = re.compile('^tweet (.+)', re.IGNORECASE + re.UNICODE)
+trigger_regex = re.compile('^tweet(?: that)? (.+)', re.IGNORECASE + re.UNICODE)
 
 def run(tweet_r):
     tweet = tweet_r.groups()[0]
