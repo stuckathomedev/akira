@@ -60,7 +60,6 @@ def main():
                         found_module = True
                         print(f"dbg: found match: {module.trigger_regex.match(statement)}")
                         module.run(module.trigger_regex.match(statement))
-                        continue
                 if not found_module:
                     tts(f"Sorry, I'm not sure what you meant by '{statement}'.")
             except sr.UnknownValueError:

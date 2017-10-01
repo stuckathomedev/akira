@@ -43,7 +43,7 @@ def wear_clothes(temp, status):
         return what_to_do
 
 
-trigger_regex = re.compile("^(?:what's the weather(?: like)?(?: today)? at?|what is the weather(?: like)?(?: today)? at?|weather at) (.+)$", re.IGNORECASE + re.UNICODE)
+trigger_regex = re.compile("^(?:what's the weather(?: like)?(?: today)? (?:at|in)?|what is the weather(?: like)?(?: today)? (?:at|in)?|weather at) (.+)$", re.IGNORECASE + re.UNICODE)
 
 
 def run(matches):
