@@ -44,7 +44,7 @@ def main():
     r.pause_threshold = 0.5
     while wait_for_hotword():
         with sr.Microphone() as source:
-            tts("Hi!")
+            tts("Hey!")
             audio = r.listen(source)
             try:
                 print("dbg: waiting for speech recognition")
