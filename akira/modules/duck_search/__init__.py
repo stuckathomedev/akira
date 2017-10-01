@@ -5,4 +5,7 @@ from voice import tts
 trigger_regex = re.compile('^search for (.+)$')
 
 def run(search_query):
-    tts(f"Your results: {ddg_instant_answer(search_query.groups()[0])}")
+    try:
+        tts(f"Your results: {ddg_instant_answer(search_query.groups()[0])}")
+    except:
+        tts("Sorry, no results.")
