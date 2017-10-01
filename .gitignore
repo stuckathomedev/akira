@@ -6,10 +6,12 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 #Twitter Stuff
-cogs/twitter/twitter_cfg.py
+modules/twitter/twitter_cfg.py
 
 #Facebook stuff
-cogs/facebook/cfg.py
+modules/facebook/facebook_cfg.py
+
+modules/matrix/matrix_cfg.py
 
 # User-specific stuff:
 .idea/**/workspace.xml
