@@ -1,12 +1,14 @@
 import sys
-import modules.matrix.ref
-import modules.matrix.cfg
+import re
+import modules.matrix.matrix_cfg
 import logging
+import random
+import time
+from voice import tts
 
 from matrix_client.client import MatrixClient
 from matrix_client.api import MatrixRequestError
 from requests.exceptions import MissingSchema
-
 
 
 def on_message(room, event):
@@ -20,7 +22,13 @@ def on_message(room, event):
         print(event['type'])
 
 
-def main(host, username, password, room_id_alias):
+def main(host, username, password, number, msg):
+    number = number.replace('-', '')
+    print("dbg:", host, username, password, number, msg)
+    room_alias = f"akira{number}{random.randint(0, 10000)}"
+    mxid_num = f"@+1{number}:matrix.openmarket.com"
+    print("dbg:", room_alias, mxid_num)
+
     client = MatrixClient(host)
 
     try:
@@ -33,13 +41,15 @@ def main(host, username, password, room_id_alias):
         else:
             print("Check your server details are correct.")
             sys.exit(2)
-    except MissingSchema as e:
+    except MissingSchema:
         print("Bad URL format.")
         print(3)
         sys.exit(3)
 
     try:
-        room = client.join_room(room_id_alias)
+        room = client.create_room(room_alias, is_public=False)
+        room.invite_user(mxid_num)
+        time.sleep(10)
     except MatrixRequestError as e:
         print(e)
         if e.code == 400:
@@ -47,27 +57,28 @@ def main(host, username, password, room_id_alias):
             sys.exit(11)
         else:
             print("Could not find room.")
+            print(e)
             sys.exit(12)
 
     room.add_listener(on_message)
     client.start_listener_thread()
 
-    while True:
-        msg = cogs.matrix.ref.get_input()
-        if msg == "/quit":
-            break
-        else:
-            room.send_text(msg)
+    room.send_text(msg)
 
 
+trigger_regex = re.compile('text (.+) to (.+)', re.IGNORECASE)
 
-def start_matrix():
+
+def run(matches):
+    msg = matches.groups()[0]
+    number = matches.groups()[1]
     logging.basicConfig(level=logging.WARNING)
-    host = cogs.matrix.cfg.matrix_host
-    username = cogs.matrix.cfg.matrix_username
-    password = cogs.matrix.cfg.matrix_password
-    room_id_alias = cogs.matrix.cfg.matrix_room
+    tts(f"Okay, sending {msg} to {number}. Please hold.")
+    host = modules.matrix.matrix_cfg.cfg["matrix_host"]
+    username = modules.matrix.matrix_cfg.cfg["matrix_username"]
+    password = modules.matrix.matrix_cfg.cfg["matrix_password"]
 
-    main(host, username, password, room_id_alias)
+    main(host, username, password, number, msg)
+    tts("Message sent.")
 
 

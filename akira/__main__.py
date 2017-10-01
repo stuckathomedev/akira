@@ -2,7 +2,7 @@ __version__ = '0.0.1'
 
 import os, math, time, re
 from voice import tts
-from modules import duck_search, weather, twitter, quit as leave, facebook
+from modules import duck_search, weather, twitter, quit as leave, facebook, matrix
 import pocketsphinx
 import pyaudio
 import speech_recognition as sr
@@ -53,7 +53,7 @@ def main():
 
                 statement = re.sub('^(hi|hello|please)', '', statement).strip()
                 found_module = False
-                for module in [leave, duck_search, twitter, weather, facebook]:
+                for module in [leave, duck_search, twitter, weather, facebook, matrix]:
                     print("dbg: testing module " + str(module))
                     if module.trigger_regex.match(statement):
                         print(f"dbg: starting {module}")
