@@ -11,7 +11,7 @@ libj.set_JSON_location("journal.json")
 def create_entry(name, text):
     try:
         libj.add_entry(name, text)
-        tts("Successfully added entry:" + name)
+        tts("Successfully added entry " + text)
     except Exception as e:
         print(e)
         tts("Sorry, the journal did not save. Please try again!")
