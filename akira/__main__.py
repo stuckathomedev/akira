@@ -51,7 +51,7 @@ def main():
                 statement = str(r.recognize_google(audio))
                 print("dbg: got speech recognition")
 
-                statement = re.sub('^(hi|hello|please)', '', statement).strip()
+                statement = re.sub('^(hi|hello|please|hey|akira)', '', statement).strip()
                 found_module = False
                 for module in [leave, duck_search, twitter, weather, facebook, matrix, journal, challenges]:
                     print("dbg: testing module " + str(module))
