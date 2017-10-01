@@ -1,4 +1,5 @@
-import random
+import random, re
+from voice import tts
 
 challenges = {
     1:"Go for atleast a 30 minute walk.",
@@ -15,9 +16,11 @@ challenges = {
     12:"Go out of your way to make a new friend today."
 }
 
-daily_quest = random.choice(list(challenges.keys()))
 
-daily_challenge = (challenges[daily_quest])
+trigger_regex = re.compile('give me a challenge')
 
+def run(x):
+    daily_quest = random.choice(list(challenges.keys()))
 
-
+    daily_challenge = (challenges[daily_quest])
+    tts(daily_challenge)
